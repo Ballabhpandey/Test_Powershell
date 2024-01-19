@@ -79,6 +79,10 @@ GROUP BY egmpk order by egmid]]>
 		<property name="com.jaspersoft.studio.field.name" value="MONEYOUT"/>
 		<property name="com.jaspersoft.studio.field.label" value="MONEYOUT"/>
 	</field>
+	<field name="moneyOut" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MONEYOUT"/>
+		<property name="com.jaspersoft.studio.field.label" value="MONEYOUT"/>
+	</field>
 	<field name="accountIn" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="ACCOUNTIN"/>
 		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTIN"/>
