@@ -57,6 +57,7 @@ SUM(DECODE (stat_type, 'ACCOUNT', cin_inc)) acc_cin,
 SUM(DECODE (stat_type, 'ETICKET', cin_inc)) eticket_cin,
 SUM(DECODE (stat_type, 'RRP', cin_inc, 'P2C', cin_inc)) RRP_cin
 from ccce_mac_stat
+ahjahajah
 WHERE stat_date BETWEEN to_date('01/01/2019','dd/mm/yyyy') and to_date('01/11/2023','dd/mm/yyyy')
 GROUP BY mac_id
 ) a
