@@ -85,7 +85,7 @@ GROUP BY egmpk order by egmid]]>
 		<property name="com.jaspersoft.studio.field.name" value="MONEYOUT"/>
 		<property name="com.jaspersoft.studio.field.label" value="MONEYOUT"/>
 	</field>
-	<field name="accountIn" class="java.math.BigDecimal">
+	<field name="abhay" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="ACCOUNTIN"/>
 		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTIN"/>
 	</field>
@@ -107,7 +107,7 @@ GROUP BY egmpk order by egmid]]>
 	</field>
 	<field name="autopaidJackpots" class="java.math.BigDecimal"/>
 	<variable name="REPORT_VERSION" class="java.lang.String" resetType="None">
-		<variableExpression><![CDATA["7.4.8.12.102"]]></variableExpression>
+		<variableExpression><![CDATA["1.2.3.4"]]></variableExpression>
 	</variable>
 	<variable name="REPORT_NAME" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA["NSW Metering Report"]]></variableExpression>
@@ -997,3 +997,17 @@ GROUP BY egmpk order by egmid]]>
 		</band>
 	</summary>
 </jasperReport>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
