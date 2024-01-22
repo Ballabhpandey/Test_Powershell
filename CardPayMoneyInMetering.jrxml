@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+abhay pandey
 <!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NSW Metering Report" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="102c1501-550b-4f34-a867-0f56e4170cc4">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AIDC"/>
@@ -57,6 +58,7 @@ SUM(DECODE (stat_type, 'ACCOUNT', cin_inc)) acc_cin,
 SUM(DECODE (stat_type, 'ETICKET', cin_inc)) eticket_cin,
 SUM(DECODE (stat_type, 'RRP', cin_inc, 'P2C', cin_inc)) RRP_cin
 from ccce_mac_stat
+ahjahajah
 WHERE stat_date BETWEEN to_date('01/01/2019','dd/mm/yyyy') and to_date('01/11/2023','dd/mm/yyyy')
 GROUP BY mac_id
 ) a
@@ -83,7 +85,7 @@ GROUP BY egmpk order by egmid]]>
 		<property name="com.jaspersoft.studio.field.name" value="MONEYOUT"/>
 		<property name="com.jaspersoft.studio.field.label" value="MONEYOUT"/>
 	</field>
-	<field name="accountIn" class="java.math.BigDecimal">
+	<field name="abhay" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="ACCOUNTIN"/>
 		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTIN"/>
 	</field>
@@ -105,7 +107,7 @@ GROUP BY egmpk order by egmid]]>
 	</field>
 	<field name="autopaidJackpots" class="java.math.BigDecimal"/>
 	<variable name="REPORT_VERSION" class="java.lang.String" resetType="None">
-		<variableExpression><![CDATA["7.4.8.12.102"]]></variableExpression>
+		<variableExpression><![CDATA["1.2.3.4"]]></variableExpression>
 	</variable>
 	<variable name="REPORT_NAME" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA["NSW Metering Report"]]></variableExpression>
@@ -995,3 +997,17 @@ GROUP BY egmpk order by egmid]]>
 		</band>
 	</summary>
 </jasperReport>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
