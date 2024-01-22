@@ -1,6 +1,5 @@
-
 {
-  
-  "email": "xyz@example.com",
-  "Version": "17.0.2.3"
+    "name":  "developing-with-docker",
+    "version":  "7.4.8.12.121",
+    "description":  ""
 }
