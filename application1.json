@@ -2,15 +2,15 @@
     "applications":  [
                          {
                              "name":  "app1",
-                             "version":  "7.4.8.12.131"
-                         },
-                         {
-                             "name":  "app2",
                              "version":  "7.4.8.12.132"
                          },
                          {
-                             "name":  "app3",
+                             "name":  "app2",
                              "version":  "7.4.8.12.133"
+                         },
+                         {
+                             "name":  "app3",
+                             "version":  "7.4.8.12.134"
                          }
                      ]
 }
