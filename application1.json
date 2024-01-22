@@ -1,16 +1,16 @@
 {
     "applications":  [
                          {
-                             "name":  "app1",
-                             "version":  "7.4.8.12.132"
-                         },
-                         {
-                             "name":  "app2",
+                             "name":  "CardPayMoneyInMetering",
                              "version":  "7.4.8.12.133"
                          },
                          {
-                             "name":  "app3",
+                             "name":  "CardPayMoneyInMeteringe",
                              "version":  "7.4.8.12.134"
+                         },
+                         {
+                             "name":  "CardPayStatement",
+                             "version":  "7.4.8.12.135"
                          }
                      ]
 }
