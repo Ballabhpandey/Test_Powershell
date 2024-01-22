@@ -607,7 +607,7 @@ GROUP BY egmpk order by egmid]]>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["� 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["? 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="288" y="14" width="219" height="10" uuid="ed66ecda-bd62-4246-94ac-1c1c54d03458">
@@ -742,7 +742,7 @@ GROUP BY egmpk order by egmid]]>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["� 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["? 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="288" y="14" width="219" height="10" uuid="f07953be-28a3-460a-8a9e-bff6a101332e">
@@ -997,6 +997,7 @@ GROUP BY egmpk order by egmid]]>
 		</band>
 	</summary>
 </jasperReport>
+
 
 
 
