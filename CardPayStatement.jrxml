@@ -1,0 +1,1804 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cardPAY Statement" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="102c1501-550b-4f34-a867-0f56e4170cc4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AIDC"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.column.width.ratio" value="1.25f"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="true"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Zebra" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0 && ($P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true)]]></conditionExpression>
+			<style backcolor="#EFEFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="XferList" uuid="7073fa2b-b0f4-48c2-9a37-8ffc2aa75aa9">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="xferStateText" class="java.lang.String"/>
+		<field name="xferStateCode" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="REPORT_FORMAT" class="java.lang.String"/>
+	<parameter name="IS_DETAILED_REPORT" class="java.lang.String"/>
+	<parameter name="VENUE_NAME" class="java.lang.String"/>
+	<parameter name="GENERATED_BY_USER" class="java.lang.String"/>
+	<parameter name="START_DATE" class="java.lang.String"/>
+	<parameter name="END_DATE" class="java.lang.String"/>
+	<parameter name="SEARCH_BY" class="java.lang.String"/>
+	<parameter name="SEARCH_VALUE" class="java.lang.String"/>
+	<parameter name="SHOW_CLOSED_ACCOUNT" class="java.lang.String"/>
+	<parameter name="XFER_DATASOURCE" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="CASH_HEADER" class="java.lang.String"/>
+	<parameter name="PROMO_HEADER" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 
+   to_char(trans_time,'dd/mm/yyyy hh:mi:ss AM') as txnTimestamp, ccce_transaction as txnCode, participant, 
+   (select credit_desc from ccce_global where credit_type = xfer_credit) as purse,
+   trans_details as txnDetails, account_no as accountNo,
+   amount, balance, balance as pointRedemBalance, nvl(xfer_state, 0) as xferState, 
+   start_credit as startCredit, end_credit as endCredit, start_cin as startCin, end_cin as endCin, 
+   start_cout as startCout, end_cout as endCout, nvl(acct_cin, 0) as accountCin, nvl(acct_cout, 0) as accountCout, 
+   nvl(participant_cin, 0) participantCin, nvl(participant_cout, 0) participantCout, 
+   xfer_credit as xferCredit, balance_1 as balance1, balance_2 as balance2, payee_name as payeeName, nvl(chequeno, 0) as chequeNo 
+from ccce_log 
+where account_no = '1001810' and
+    trunc(trans_time) between to_date('01/01/2020','dd/mm/yyyy') and to_date('15/11/2023','dd/mm/yyyy')
+order by trans_time ASC, trans_no ASC]]>
+	</queryString>
+	<field name="txnTimestamp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TXNTIMESTAMP"/>
+		<property name="com.jaspersoft.studio.field.label" value="TXNTIMESTAMP"/>
+	</field>
+	<field name="txnCode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TXNCODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TXNCODE"/>
+	</field>
+	<field name="participant" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PARTICIPANT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PARTICIPANT"/>
+	</field>
+	<field name="txnDetails" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TXNDETAILS"/>
+		<property name="com.jaspersoft.studio.field.label" value="TXNDETAILS"/>
+	</field>
+	<field name="purse" class="java.lang.String"/>
+	<field name="accountNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ACCOUNT_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACCOUNT_NO"/>
+	</field>
+	<field name="amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="AMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="AMOUNT"/>
+	</field>
+	<field name="balance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BALANCE"/>
+		<property name="com.jaspersoft.studio.field.label" value="BALANCE"/>
+	</field>
+	<field name="pointRedemBalance" class="java.math.BigDecimal"/>
+	<field name="xferState" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="XFERSTATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="XFERSTATE"/>
+	</field>
+	<field name="startCredit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="STARTCREDIT"/>
+		<property name="com.jaspersoft.studio.field.label" value="STARTCREDIT"/>
+	</field>
+	<field name="endCredit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ENDCREDIT"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENDCREDIT"/>
+	</field>
+	<field name="startCin" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="STARTCIN"/>
+		<property name="com.jaspersoft.studio.field.label" value="STARTCIN"/>
+	</field>
+	<field name="endCin" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ENDCIN"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENDCIN"/>
+	</field>
+	<field name="startCout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="STARTCOUT"/>
+		<property name="com.jaspersoft.studio.field.label" value="STARTCOUT"/>
+	</field>
+	<field name="endCout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ENDCOUT"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENDCOUT"/>
+	</field>
+	<field name="accountCin" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ACCOUNTCIN"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTCIN"/>
+	</field>
+	<field name="accountCout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ACCOUNTCOUT"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTCOUT"/>
+	</field>
+	<field name="participantCin" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PARTICIPANTCIN"/>
+		<property name="com.jaspersoft.studio.field.label" value="PARTICIPANTCIN"/>
+	</field>
+	<field name="participantCout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PARTICIPANTCOUT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PARTICIPANTCOUT"/>
+	</field>
+	<field name="xferCredit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="XFER_CREDIT"/>
+		<property name="com.jaspersoft.studio.field.label" value="XFER_CREDIT"/>
+	</field>
+	<field name="balance1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BALANCE_1"/>
+		<property name="com.jaspersoft.studio.field.label" value="BALANCE_1"/>
+	</field>
+	<field name="balance2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BALANCE_2"/>
+		<property name="com.jaspersoft.studio.field.label" value="BALANCE_2"/>
+	</field>
+	<field name="payeeName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PAYEE_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAYEE_NAME"/>
+	</field>
+	<field name="chequeNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CHEQUENO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CHEQUENO"/>
+	</field>
+	<variable name="REPORT_VERSION" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA["7.4.8.12.134"]]></variableExpression>
+	</variable>
+	<variable name="REPORT_NAME" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA["cardPAY Statement"]]></variableExpression>
+	</variable>
+	<variable name="sumCashBalance" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{balance}]]></variableExpression>
+	</variable>
+	<variable name="sumPointRedemBalance" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{pointRedemBalance}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="89" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="570" height="20" uuid="87ddb985-eba5-4e71-b922-ea2f1930b93a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="570" y="0" width="229" height="20" uuid="0ad81e87-f78d-41dc-aec0-6e9ebb560f5f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{VENUE_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="20" width="43" height="12" uuid="cc3a1a5c-8e71-4fbf-9f54-3c66721ce027">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SAR: 150"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="43" y="20" width="756" height="12" uuid="41898603-c288-4118-aac4-b9e6bd0e6e00">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Version: "+$V{REPORT_VERSION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="32" width="105" height="11" uuid="f49d82ea-391c-4543-9bba-a4b8220de872">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report Date: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="106" y="32" width="120" height="11" uuid="d8edff6b-9214-4bd3-8225-eec1af2cde5a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["From " + $P{START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="106" y="43" width="120" height="11" uuid="299340c4-ae70-45df-b1a2-ac6dc068feda">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["To " + $P{END_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="76" width="105" height="11" uuid="35f61423-50a3-4128-ac78-65fc82e885bd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report Type: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="106" y="54" width="120" height="11" uuid="5aebceda-a5bb-4166-9b75-484bdd8ffc63">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SEARCH_VALUE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="65" width="105" height="11" uuid="8696261e-9b0c-4a80-bd26-13b5d7d3fa38">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Show Closed Account: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="106" y="76" width="120" height="11" uuid="b147ae17-b478-4f43-9865-ca45f0c21dba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")?"Detailed":"Normal"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="0" y="54" width="105" height="11" uuid="49771e11-817d-443b-96e9-45539f193625">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SEARCH_BY}+":"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="106" y="65" width="120" height="11" uuid="3da2c4ec-dc72-4036-bb1e-0af7b1c82f06">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SHOW_CLOSED_ACCOUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="226" height="14" uuid="a131ffa6-ccbd-4725-9dee-8caac664c88e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1 && !$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<line>
+				<reportElement x="0" y="25" width="802" height="1" uuid="868703a1-7b35-404f-8660-9b9414d6ce16">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true && $P{REPORT_FORMAT}.equals("xlsx") != true]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="1" width="85" height="24" isPrintInFirstWholeBand="true" uuid="a4764da2-51b0-46bd-8e6e-cf7686b404fd">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Date/Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Transparent" x="85" y="1" width="68" height="24" uuid="237912f3-db65-47b6-9f66-e4434fe7105e">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transaction Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="153" y="1" width="28" height="24" uuid="33c596ab-e8f3-4750-9409-8188ec9a8bce">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="3" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Purse]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="181" y="1" width="40" height="24" uuid="18d3d187-7ea0-41b2-b724-be4eef3ebc8e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="221" y="1" width="40" height="24" uuid="f77b589c-18b4-4b2e-8d82-5af05b5f50e7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CASH_HEADER}+" Balance"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="261" y="1" width="75" height="24" uuid="cf942f8e-87d3-470c-b596-4a633aacb29f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PROMO_HEADER}+" Balance"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="336" y="1" width="34" height="24" uuid="941d7e18-8abc-4c44-a5c8-8ea552a4463c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="5" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Details]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="0" y="0" width="802" height="1" uuid="4a762d81-afff-4719-b192-df73b4a16871">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true && $P{REPORT_FORMAT}.equals("xlsx") != true]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="370" y="1" width="35" height="24" uuid="f3614108-52bc-4e30-9491-8e4c4a7461ff">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start ExCr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="405" y="1" width="35" height="24" uuid="3c8604f6-a988-40e7-a3e5-a747ec834a95">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End ExCr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="440" y="1" width="35" height="24" uuid="15912a09-0018-4ece-a60f-24e3076b60f0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start CLI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="475" y="1" width="35" height="24" uuid="75998816-8bf4-4412-b890-409146ab0024">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End CLI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="510" y="1" width="35" height="24" uuid="dac3797c-f19a-4a56-9dca-79a133431b6a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start CLO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="545" y="1" width="35" height="24" uuid="11452cf6-1bef-4e0d-be92-ec68ffedcebb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End CLO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="580" y="1" width="55" height="24" uuid="dd5b01a3-4497-4e89-bd09-f1e8188de332">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A/C Cin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="635" y="1" width="55" height="24" uuid="62d7194b-88ae-4efb-a7f9-40dd72abb731">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A/C Cout]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="690" y="1" width="56" height="24" uuid="2c076045-88db-4636-b247-d84a4c8e2b62">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Part. CLI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="746" y="1" width="56" height="24" uuid="bca2ac54-b749-4fed-9515-f623c311fdaa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Part. CLO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="319" y="1" width="70" height="24" uuid="8fa909d1-1ac5-46e8-9746-5a57118802a2">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Purse]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="519" y="1" width="142" height="24" uuid="15035e8d-c622-4dcd-8730-51cf3b0322c5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CASH_HEADER}+" Balance"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="661" y="1" width="140" height="24" uuid="3f1c71ab-44e4-4727-8250-e3a1e7ac2835">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PROMO_HEADER}+" Balance"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Transparent" x="155" y="1" width="164" height="24" uuid="f5c66f23-36bb-4cf2-a1f6-c02a15127db0">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transaction Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="1" width="155" height="24" isPrintInFirstWholeBand="true" uuid="4e9f20c3-4397-4c14-8f81-1002dd7fd327">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Date/Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="389" y="1" width="130" height="24" uuid="23e09df8-6dfe-411d-939a-a81314448511">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="0" y="0" width="85" height="12" uuid="e4aee43a-ebb4-4903-84de-17be54b15d55">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48e46227-2d8e-4434-9f65-b7ce4329763f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnTimestamp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="85" y="0" width="68" height="12" uuid="75bcd330-25ca-43ac-bd20-3fe4cd3d7a07">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="153" y="0" width="28" height="12" uuid="c1c0c5d3-f25d-495c-a9be-07082547d804">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{purse}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="181" y="0" width="40" height="12" uuid="6293cb78-9f77-4437-a78a-1ff1097d202b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="221" y="0" width="40" height="12" uuid="d353a577-3d23-4fbc-862b-21ea99529a98">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="261" y="0" width="75" height="12" uuid="37931ba8-26cf-4d96-9f87-86da64415c41">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pointRedemBalance}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="336" y="0" width="34" height="12" uuid="02278e20-365e-41fd-93ef-7f419f2a30c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{xferState}.equals("0")?"":$F{xferState}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="370" y="0" width="35" height="12" uuid="0c35ce5f-c04f-4672-bed8-61fdc7b3c908">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startCredit}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="405" y="0" width="35" height="12" uuid="a9f7bd43-d816-47a8-9f71-fe2c896fdb2c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endCredit}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="440" y="0" width="35" height="12" uuid="3ebc8d0c-e237-4926-8e17-18de9d85f072">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startCin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="475" y="0" width="35" height="12" uuid="6765c0fa-2020-44f6-b323-64b0c53bd670">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endCin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="510" y="0" width="35" height="12" uuid="30e61cfc-452b-4817-94bc-112d56965086">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="545" y="0" width="35" height="12" uuid="9dce2668-ae5d-420c-9d2a-c39ec2f3e47c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="635" y="0" width="55" height="12" uuid="2034b407-4152-4931-8c22-d9e8701a0619">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accountCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="580" y="0" width="55" height="12" uuid="e3d84d0e-3624-4c0c-b107-a0726112cc8f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accountCin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Zebra" mode="Opaque" x="746" y="0" width="56" height="12" uuid="af4d7bfc-34c6-4929-86ac-561fab1c0f29">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="690" y="0" width="56" height="12" uuid="bd24788e-cde9-4d8f-b2c3-7c6558274b80">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantCin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="0" y="0" width="155" height="12" uuid="4766426f-ffe0-40c1-a484-30d723ec2b00">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48e46227-2d8e-4434-9f65-b7ce4329763f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnTimestamp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="155" y="0" width="164" height="12" uuid="4d6773d3-10ae-4407-bacf-47e7e79b64ab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="319" y="0" width="70" height="12" uuid="ce9a4536-02b8-4f9c-9f16-084255d8078f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{purse}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="389" y="0" width="130" height="12" uuid="3d852499-5ec8-4d10-afca-40324f0f99f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="519" y="0" width="142" height="12" uuid="e9148666-2017-4c5d-a517-45f0fdefc803">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Opaque" x="661" y="0" width="140" height="12" uuid="5f7c7125-ea7f-4027-8348-2d45b985dd42">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && $P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pointRedemBalance}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="0" y="0" width="85" height="12" uuid="d1f3d3d7-1493-4107-8107-10ddd0a7cb98">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48e46227-2d8e-4434-9f65-b7ce4329763f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnTimestamp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="85" y="0" width="68" height="12" uuid="28c15d23-6016-48fe-88ab-b9eec313105e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="153" y="0" width="28" height="12" uuid="2a512779-50ef-4dce-8a0f-83b2522002ef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{purse}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="181" y="0" width="40" height="12" uuid="7ef3e216-8e0c-4989-a295-ec7abd104351">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="221" y="0" width="40" height="12" uuid="66b73773-c753-4a13-b500-629847b9b1da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="261" y="0" width="75" height="12" uuid="2407efda-7c34-4551-94bb-4241b4dfcec4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pointRedemBalance}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="336" y="0" width="34" height="12" uuid="fa3729b0-d30b-4701-92f1-43d2f7326ea5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{xferState}.equals("0")?"":$F{xferState}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="370" y="0" width="35" height="12" uuid="df2411ae-5b8f-4a39-867e-29028117c42a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startCredit}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="405" y="0" width="35" height="12" uuid="1ddec037-4256-4444-b608-40d7f4c97cdc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endCredit}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="440" y="0" width="35" height="12" uuid="f880a894-021e-4a50-85d7-cc4b38068b6c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startCin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="475" y="0" width="35" height="12" uuid="789c7ff1-70cd-488d-9623-9d97348f7347">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endCin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="510" y="0" width="35" height="12" uuid="0c4c5482-da5a-4706-baf6-10c2d8ccaa28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="545" y="0" width="35" height="12" uuid="a5920c3c-59ac-4465-b8da-1432816b7ccb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="635" y="0" width="55" height="12" uuid="e2cdbf7d-9b40-4244-b65a-341508b20aef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accountCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="580" y="0" width="55" height="12" uuid="80d7d264-4dac-4769-979f-7c7ea77ce5df">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accountCin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Zebra" mode="Transparent" x="746" y="0" width="56" height="12" uuid="6980c621-df49-4133-bf61-edeffed1fe91">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantCout}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="690" y="0" width="56" height="12" uuid="1c3189bf-5a07-450d-b198-221d8639a773">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantCin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="0" y="0" width="155" height="12" uuid="add1ebe2-dfc8-4283-9e9a-a0594b023c8e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48e46227-2d8e-4434-9f65-b7ce4329763f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnTimestamp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="155" y="0" width="164" height="12" uuid="49a9954e-363f-4094-a057-81ecf3c56365">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{txnCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="319" y="0" width="70" height="12" uuid="115b4502-d051-4e9b-964b-172182bbe4b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{purse}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="389" y="0" width="130" height="12" uuid="05fac3c8-8482-4e69-bc90-7fceffe4b7f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="519" y="0" width="142" height="12" uuid="fbb3d8f6-6cca-4442-ae65-8b0a00934493">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement style="Zebra" mode="Transparent" x="661" y="0" width="140" height="12" uuid="856f001a-77e4-4d10-8dbc-8e6d821be623">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a8a1a9-7cc6-49c6-97ca-455fe9bc5a58"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pointRedemBalance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+			<line>
+				<reportElement x="0" y="1" width="802" height="1" uuid="e7dd6fb5-fa37-4ac3-b3ff-e6fcb3f02cbe">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true && $P{REPORT_FORMAT}.equals("xlsx") != true]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement mode="Opaque" x="288" y="4" width="219" height="10" uuid="21454b1f-0a31-4ad1-b695-d41988891829">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["© 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="288" y="14" width="219" height="10" uuid="ed66ecda-bd62-4246-94ac-1c1c54d03458">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["System 7000"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy hh:mm:ss aaa">
+				<reportElement mode="Opaque" x="35" y="4" width="253" height="10" uuid="67897c4d-cfc4-4b06-ada2-27092f5c33b9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="net.sf.jasperreports.export.xls.pattern" value="dd/MM/yyyy hh:mm:ss AM/PM "/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="35" y="14" width="253" height="10" uuid="6a4fb31c-faed-4480-b136-d0e6180df751">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{GENERATED_BY_USER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="14" width="35" height="10" uuid="aa42b8f1-de99-4e13-b420-624815acd460">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["User: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="35" height="10" uuid="3dad672c-4380-4179-a993-17124f470fb2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Printed: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="507" y="4" width="252" height="10" uuid="8a753bea-ccf7-4ae3-8b17-2e129d49b6b2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="760" y="4" width="42" height="10" uuid="5a73cd08-a545-483d-a139-7f69859cbf32">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="27">
+			<property name="com.jaspersoft.studio.layout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<line>
+				<reportElement x="0" y="1" width="802" height="1" uuid="37bf1ee2-988d-4ad7-a6f8-aa7e806314a9">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true && $P{REPORT_FORMAT}.equals("xlsx") != true]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField pattern="dd/MM/yyyy hh:mm:ss aaa">
+				<reportElement mode="Opaque" x="35" y="4" width="253" height="10" uuid="6b37e968-0eb3-4b1f-a6a6-d0fe63963d2d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="net.sf.jasperreports.export.xls.pattern" value="dd/MM/yyyy hh:mm:ss AM/PM "/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="35" height="10" uuid="8484a189-e91a-4c59-8234-cda9b2171857">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Printed: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="14" width="35" height="10" uuid="2e4c77ec-81fe-408a-8dc3-615a38ff66f1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["User: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="288" y="4" width="219" height="10" uuid="4cbf2859-719d-4981-9b98-94ebc11aeb05">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["© 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="288" y="14" width="219" height="10" uuid="f07953be-28a3-460a-8a9e-bff6a101332e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["System 7000"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="507" y="4" width="252" height="10" uuid="0be82391-b55b-4421-91df-683e758b61a3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="760" y="4" width="42" height="10" uuid="20d34746-ec6b-4166-9878-b07fa4edaa0c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="35" y="14" width="253" height="10" uuid="b4d732a3-24cf-4680-97e9-788f20157e80">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{GENERATED_BY_USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="85" y="0" width="68" height="10" isPrintInFirstWholeBand="true" uuid="788971d2-4a2d-4e24-ab12-9fa5da5e3544">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Current Balance]]></text>
+			</staticText>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement key="" x="221" y="0" width="40" height="10" uuid="12db84aa-4b36-4a86-848d-9f1f7452f6fa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumCashBalance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement key="" x="261" y="0" width="75" height="10" uuid="794879c9-e2a3-4778-a093-fd31a2e88165">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumPointRedemBalance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="155" y="0" width="164" height="10" isPrintInFirstWholeBand="true" uuid="4fe2ba5a-540e-42cd-ac73-bf8342483e24">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Current Balance]]></text>
+			</staticText>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement x="519" y="0" width="142" height="10" uuid="c7bf96cd-fdc8-481b-ad7c-7b6d07fef7b2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumCashBalance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement x="661" y="0" width="140" height="10" uuid="22d8726f-1d05-47cb-ab2c-5a8296b3f858">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true") && ($P{REPORT_FORMAT}.equals("xlsx_data") == true || $P{REPORT_FORMAT}.equals("csv") == true)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumPointRedemBalance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="40">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true]]></printWhenExpression>
+			<line>
+				<reportElement x="0" y="1" width="802" height="1" uuid="c0490641-188d-4c1e-8444-1b6958c4d6e1">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{REPORT_FORMAT}.equals("xlsx_data") != true && $P{REPORT_FORMAT}.equals("csv") != true && $P{REPORT_FORMAT}.equals("xlsx") != true]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="85" y="3" width="68" height="10" isPrintInFirstWholeBand="true" uuid="2e612a37-3a4d-4551-8bb2-1d9ad0471d0f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Current Balance]]></text>
+			</staticText>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement key="" x="221" y="3" width="40" height="10" uuid="7187b68b-f3e5-4667-95b2-6ed1fbe1120c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumCashBalance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement key="" x="261" y="3" width="75" height="10" uuid="e0b2f50d-d8d2-4665-a07e-c98011381eef">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumPointRedemBalance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="16" width="95" height="10" isPrintInFirstWholeBand="true" uuid="8a2396f2-a67e-45c5-aa96-7471ca4510d1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Details:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="0" y="26" width="800" height="12" uuid="660c49e4-eb62-461f-8b66-332296a9f2a8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="XferList" uuid="5a711657-0bef-43cf-af5b-ab29dda1507e">
+						<dataSourceExpression><![CDATA[$P{XFER_DATASOURCE}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="12" width="800">
+						<textField>
+							<reportElement x="0" y="0" width="20" height="12" uuid="fcaf0a57-dbd1-43b9-8c66-d328ec596637">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<textElement>
+								<font fontName="Arial" size="8"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{xferStateCode}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="25" y="0" width="775" height="12" uuid="61e80695-5bbd-46b0-928d-f4343327cd74">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							</reportElement>
+							<textElement>
+								<font fontName="Arial" size="8"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{xferStateText}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="20" y="0" width="5" height="12" uuid="47b52562-4a84-4a0a-bcc0-50b82b2ace0b">
+								<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								<property name="com.jaspersoft.studio.unit.x" value="px"/>
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<textElement>
+								<font fontName="Arial" size="8"/>
+							</textElement>
+							<textFieldExpression><![CDATA[":"]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement mode="Transparent" x="155" y="3" width="164" height="10" isPrintInFirstWholeBand="true" uuid="1546acbd-c338-4ebb-a717-ffb0a1d41a49">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Current Balance]]></text>
+			</staticText>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement x="519" y="3" width="142" height="10" uuid="0dff5d39-612a-424a-a36f-5c547588833f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumCashBalance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0.00#" isBlankWhenNull="true">
+				<reportElement x="661" y="3" width="140" height="10" uuid="e496a305-44a5-4a6b-8e28-f472cfe3ebd0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[!$P{IS_DETAILED_REPORT}.equals("true")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumPointRedemBalance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
+
+
+
+
+
+
+
+
+

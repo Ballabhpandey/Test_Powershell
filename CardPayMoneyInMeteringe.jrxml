@@ -85,7 +85,7 @@ GROUP BY egmpk order by egmid]]>
 		<property name="com.jaspersoft.studio.field.name" value="MONEYOUT"/>
 		<property name="com.jaspersoft.studio.field.label" value="MONEYOUT"/>
 	</field>
-	<field name="RAM" class="java.math.BigDecimal">
+	<field name="abhay" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="ACCOUNTIN"/>
 		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTIN"/>
 	</field>
@@ -106,8 +106,8 @@ GROUP BY egmpk order by egmid]]>
 		<property name="com.jaspersoft.studio.field.label" value="P2PIN"/>
 	</field>
 	<field name="autopaidJackpots" class="java.math.BigDecimal"/>
-	<variable name="REPORT_VERSION" class="java.lang.String" resetType="None">
-		<variableExpression><![CDATA["7.4.8.12.132"]]></variableExpression>
+	<variable name="Report_Version" class="java.lang.String">
+		<variableExpression><![CDATA["7.4.8.12.133"]]></variableExpression>
 	</variable>
 	<variable name="REPORT_NAME" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA["NSW Metering Report"]]></variableExpression>
@@ -607,7 +607,7 @@ GROUP BY egmpk order by egmid]]>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["� 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["© 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="288" y="14" width="219" height="10" uuid="ed66ecda-bd62-4246-94ac-1c1c54d03458">
@@ -742,7 +742,7 @@ GROUP BY egmpk order by egmid]]>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["� 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["© 2003 - " + new SimpleDateFormat("yyyy").format(new Date()) +" Aristocrat Technologies"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="288" y="14" width="219" height="10" uuid="f07953be-28a3-460a-8a9e-bff6a101332e">
@@ -997,8 +997,6 @@ GROUP BY egmpk order by egmid]]>
 		</band>
 	</summary>
 </jasperReport>
-
-
 
 
 
