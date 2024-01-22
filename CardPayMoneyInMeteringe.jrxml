@@ -107,7 +107,7 @@ GROUP BY egmpk order by egmid]]>
 	</field>
 	<field name="autopaidJackpots" class="java.math.BigDecimal"/>
 	<variable name="Report_Version" class="java.lang.String">
-		<variableExpression><![CDATA["7.4.8.12.133"]]></variableExpression>
+		<variableExpression><![CDATA["7.4.8.12.136"]]></variableExpression>
 	</variable>
 	<variable name="REPORT_NAME" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA["NSW Metering Report"]]></variableExpression>
@@ -997,6 +997,16 @@ GROUP BY egmpk order by egmid]]>
 		</band>
 	</summary>
 </jasperReport>
+
+
+
+
+
+
+
+
+
+
 
 
 
