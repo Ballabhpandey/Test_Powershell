@@ -1,4 +1,4 @@
-﻿# Define the file paths
+# Define the file paths
 $JrxmlFilePath = "$Env:BUILD_SOURCESDIRECTORY"
 $jsonPath = "$Env:BUILD_SOURCESDIRECTORY/application1.json"
 $hashFolderPath = "$Env:BUILD_SOURCESDIRECTORY/CombinedFiles"
@@ -44,16 +44,55 @@ foreach ($application in $jsonContent.applications) {
 
             # Update the hash in the corresponding hash file
             $currentHash1 | Set-Content -Path $hashFilePath
+             
+            # Navigate to the repository path
+            cd $JrxmlFilePath
 
+            # Initialize a Git repository (if not already initialized)
+            if (-not (Test-Path -Path (Join-Path -Path $JrxmlFilePath -ChildPath ".git"))) {
+             git init
+            } else {
+            Write-Output "Already Initialized"
+            }
 
+            # Replace 'username' and 'reponame' with your GitHub username and repository name
+            $gitHubRepoUrl = "https://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@github.com/Ballabhpandey/Test_Powershell.git"  # Replace with your actual GitHub repository URL
 
+            # Check if the remote already exists
+            $remoteExists = git remote | Where-Object { $_ -eq "origin" }
 
+            # If the remote doesn't exist, add it
+              if (-not $remoteExists) {
+             # Add GitHub repository as a remote
+               git remote add origin $gitHubRepoUrl
+               Write-Output "Origin added successfully"
+               git remote -v
+               } else {
+                 Write-Output "Already exist"
+                 git remote -v
+               }
 
-            Write-Host "Field name updated and changes pushed to the repository for $($jrxmlFile.Name)."
+              # Add all changes (new files) to the staging area
+              git add .
+
+              # Commit the changes with a meaningful message
+              git commit -m "Update JRXML files"
+
+              # Check the status of updated files
+              git status
+
+              # Push the changes to the 'main' branch (replace with your branch name if different)
+              git push origin master
+
+             Write-Host "Field name updated and changes pushed to the repository for $($jrxmlFile.Name)."
         } else {
             Write-Host "No changes in $($jrxmlFile.Name)."
+            Write-Host " "
+            
         }
     }
 }
 
 # Navigate to the repository path
+
+
