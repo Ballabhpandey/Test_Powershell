@@ -2,15 +2,15 @@
     "applications":  [
                          {
                              "name":  "CardPayMoneyInMetering",
-                             "version":  "7.4.8.12.176"
+                             "version":  "7.4.8.12.198"
                          },
                          {
                              "name":  "Metering",
-                             "version":  "7.4.8.12.177"
+                             "version":  "7.4.8.12.190"
                          },
                          {
                              "name":  "CardPayStatement",
-                             "version":  "7.4.8.12.178"
+                             "version":  "7.4.8.12.202"
                          }
                      ]
 }

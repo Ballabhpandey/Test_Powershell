@@ -153,8 +153,7 @@ order by trans_time ASC, trans_no ASC]]>
 		<property name="com.jaspersoft.studio.field.name" value="CHEQUENO"/>
 		<property name="com.jaspersoft.studio.field.label" value="CHEQUENO"/>
 	</field>
-	<variable name="REPORT_VERSION" class="java.lang.String" resetType="None">
-		<variableExpression><![CDATA["7.4.8.12.137"]]></variableExpression>
+	$17.4.8.12.134"]]></variableExpression>
 	</variable>
 	<variable name="REPORT_NAME" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA["cardPAY Statement"]]></variableExpression>
@@ -1793,6 +1792,11 @@ order by trans_time ASC, trans_no ASC]]>
 		</band>
 	</summary>
 </jasperReport>
+
+
+
+
+
 
 
 

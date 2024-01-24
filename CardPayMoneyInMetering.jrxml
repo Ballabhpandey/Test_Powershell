@@ -106,8 +106,8 @@ GROUP BY egmpk order by egmid]]>
 		<property name="com.jaspersoft.studio.field.label" value="Pj2PIN"/>
 	</field>
 	<field name="autopaidJackpots" class="java.math.BigDecimal"/>
-	<variable name="REPORT_VERSION" class="java.lang.String" resetType="None">
-		<variableExpression><![CDATA["2.3.4.5.8"]]></variableExpression>
+	<variable name="REPORT_VERSION" class="java.lang.String" resetType="Nne">
+		<variableExpression><![CDATA["7.4.8.12.132"]]></variableExpression>
 	</variable>
 	<variable name="REPORT_NAME" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA["NSW Metering Report"]]></variableExpression>
@@ -117,7 +117,7 @@ GROUP BY egmpk order by egmid]]>
 	</variable>
 	<variable name="totalMoneyOut" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{moneyOut}]]></variableExpression>
-	</variable>
+	</variable>zaZ
 	<variable name="totalAccountIn" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{accountIn}]]></variableExpression>
 	</variable>
@@ -997,6 +997,14 @@ GROUP BY egmpk order by egmid]]>
 		</band>
 	</summary>
 </jasperReport>
+
+
+
+
+
+
+
+
 
 
 
